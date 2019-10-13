@@ -1,9 +1,24 @@
 public class Point {
-    int x;
-    int y;
+    private int x;
+
+    @Override
+    public String toString() {
+        return x +" "+ y;
+    }
+
+    private int y;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
 }

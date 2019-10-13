@@ -1,15 +1,33 @@
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Triangle> isoscelestriangles = parseInFile(args[0]);
-
+        Triangle maxTriangle =readInFile(args[0]);
+        writeOutFile(args[1], maxTriangle);
     }
 
-    public static void readInFile(String path) {
+    public static void writeOutFile(String path, Triangle tr) {
+        try(FileWriter writer = new FileWriter(path, false))
+        {
+            String text = "";
+            if (tr!=null) {
+                text=tr.toString();
+            }
+            writer.write(text);
+            writer.flush();
+        }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static Triangle readInFile(String path) {
         Triangle triangle;
+        Triangle maxTriangle=null;
         try (FileReader reader = new FileReader(path)) {
             int c;
             int i = 0;
@@ -23,7 +41,10 @@ public class Main {
                     else
                     {
                         if (triangle.isIsosceles()){
-                            if (tr)
+                            if (maxTriangle == null || triangle.getS()>maxTriangle.getS())
+                            {
+                               maxTriangle=triangle;
+                            }
                         }
                     }
                 }
@@ -33,6 +54,7 @@ public class Main {
 
             System.out.println(ex.getMessage());
         }
+        return maxTriangle;
     }
 
     public static Triangle createTriangle(String str) {
@@ -48,7 +70,7 @@ public class Main {
                 numberCount++;
                 triangleCoord.add(number);
             }
-            if (numberCount > 6) {
+            if (numberCount != 6) {
                 return null;
             }
         } catch (NumberFormatException e) {
