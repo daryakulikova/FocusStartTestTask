@@ -51,7 +51,6 @@ public class Main {
                 str += (char) c;
             }
         } catch (IOException ex) {
-
             System.out.println(ex.getMessage());
         }
         return maxTriangle;
@@ -76,8 +75,14 @@ public class Main {
         } catch (NumberFormatException e) {
             return null;
         }
-        return new Triangle(triangleCoord);
+        Triangle tr = new Triangle(triangleCoord);
+        if (tr.getLenght1()==0 ||tr.getLenght2()==0||tr.getLenght3()==0)
+        {
+            return null;
+        }
+        return tr;
 
     }
 }
+
 
