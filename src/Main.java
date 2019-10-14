@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        if (args.length<2){
+            System.out.println("Enter input and output file paths");
+            return;
+        }
         Triangle maxTriangle =readInFile(args[0]);
         writeOutFile(args[1], maxTriangle);
     }
